@@ -5,12 +5,17 @@ from models.skeleton_lstm_model import SkeletonLSTMClassifier
 from sklearn.metrics import accuracy_score
 import numpy as np
 
+# This file assumes the repo is installed in editable mode using:
+#   pip install -e .
+# This avoids fragile sys.path hacks and ensures clean modular imports.
+
+
 # Hyperparameters
 BATCH_SIZE = 2
-EPOCHS = 5
+EPOCHS = 10
 LR = 1e-3
 NUM_CLASSES = 5
-VAL_SPLIT = 0.1
+VAL_SPLIT = 0.2
 SEED = 42
 
 # Load dataset and split to Trian & Val
