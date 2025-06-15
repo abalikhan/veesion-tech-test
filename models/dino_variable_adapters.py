@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from transformers import Dinov2Model, AutoImageProcessor
+from utils.init_weights_utils import init_weights
 
 class AdapterBlock(nn.Module):
     """Custom Bottleneck adapter (with residual)"""
@@ -69,6 +70,9 @@ class DinoV2VariableAdapters(nn.Module):
             str(i): AdapterBlock(hidden, adapter_dim)
             for i in adapter_layers
         })
+
+        # initialize parameters 
+        self.apply(init_weights)
 
     def forward(self, pixel_values: torch.Tensor):
         """

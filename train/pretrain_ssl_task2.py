@@ -70,7 +70,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="SSL Pretraining with DINOv2 Custom Adapters")
     parser.add_argument('--image_dir', type=str, default="./data/frames")
     parser.add_argument('--batch_size', type=int, default=8)
-    parser.add_argument('--epochs', type=int, default=5)
+    parser.add_argument('--epochs', type=int, default=10)
     parser.add_argument('--lr', type=float, default=1e-4)
     parser.add_argument('--out_path', type=str, default="model_weights/dino_adapter.pth")
     parser.add_argument('--adapter_dim', type=int, default=64)

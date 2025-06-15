@@ -10,9 +10,10 @@ class SkeletonDataset(Dataset):
         self.max_frames = max_frames
         self.num_features = num_features
 
+        # list all keypoints files
         self.file_list = sorted([f for f in os.listdir(keypoints_dir) if f.endswith('.npy')]) # can be restricted to .json file if we are using json
 
-
+        # read labels to dictionary
         label_df = pd.read_csv(label_csv)
         self.labels = {row['video']: row['label'] for _, row in label_df.iterrows()}
 

@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-
+from utils.init_weights_utils import init_weights
 
 # Model to take skeleton keypoints as inputs and model time with lstm for action classification
 import torch
@@ -26,6 +26,9 @@ class SkeletonLSTMClassifier(nn.Module):
             nn.LayerNorm(hidden_dim),
             nn.Linear(hidden_dim, num_classes)
         )
+
+        # initialize parameters 
+        self.apply(init_weights)
 
     def forward(self, x):
         """
