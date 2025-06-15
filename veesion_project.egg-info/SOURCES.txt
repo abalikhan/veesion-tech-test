@@ -1,0 +1,16 @@
+setup.py
+datasets/__init__.py
+datasets/skeleton_dataset.py
+inference/__init__.py
+inference/inference_task1.py
+models/__init__.py
+models/skeleton_lstm_model.py
+train/__init__.py
+train/train_task1.py
+utils/__init__.py
+utils/create_dummy_labels.py
+utils/skeleton_extraction.py
+veesion_project.egg-info/PKG-INFO
+veesion_project.egg-info/SOURCES.txt
+veesion_project.egg-info/dependency_links.txt
+veesion_project.egg-info/top_level.txt
