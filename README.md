@@ -56,6 +56,11 @@ Inline comments are tagged `# by LLM ` or `# Manual`.
 ### Task 1 -- Skeleton Model + LSTM
 1) I selected **MediaPipe** for skeleton extraction because of its speed, reliability, and minimal code complexity. This avoids installing and debugging heavyweight extractors (e.g. OpenPose, ViTPose). But there are more robust methods that can be utilized for this part such as ViTPose, PCIE-Pose or OpenGait.
 2) **How it fits gesture detection?** Sliding a short-window LSTM over successive keypoint frames turns the clip-level model into a frame-time gesture detector, pinpointing when each action starts and ends.
+### Task 2 Pretrain 2D Encoder in Self-Supervised manner
+1) Adapting a powerful SSL backbone (DINOv2) with lightweight adapters (< 0.5 % params) gives rapid domain transfer to our gesture clips; the same strategy would work with MAE or newer video models like VideoMAE-v2 or VideoMamba.
+2) I modeled basic adpapters, but we can opt latest techniques such as IA^3, LoRA, AdapterFusion, or even temporal adapters from our Paper "AM Flow: Adapters for Temporal Processing in Action Recognition".
+### Temporal modelling (Task 2 - 3) LSTM & Transformer
+1) Defined in Table below.
 
 | Block           | Implementation                                          | Detection benefit                     |
 | --------------- | ------------------------------------------------------- | ------------------------------------- |
@@ -63,7 +68,6 @@ Inline comments are tagged `# by LLM ` or `# Manual`.
 | SSL encoder     | DINOv2 frozen + 3 × 64-dim adapters (layers 0/5/11)     | Domain adapts with < 0.5 % new params |
 | Temporal head A | 1-layer **LSTM** (hidden 256)                           | Low‑latency, online                   |
 | Temporal head B | 2-layer **TransformerEncoder** (8 heads, sinusoidal PE) | Long-range context                    |
-| Detector logic  | 16‑frame sliding window (stride 4)                      | Clip classifier → gesture boundaries  |
 
 ---
 
