@@ -1,66 +1,62 @@
-# Veesion Technical Test – Abid Ali  
-_Building a concise, end-to-end pipeline for temporal human gesture classification_
+content = """# Veesion Technical Test · Abid Ali  
+_Concise end‑to‑end pipeline for temporal human‑gesture **detection**_
 
 ---
 
-## 1.1 .Quick setup
+## 1 · Quick start (≈ 3 min)
+
+### 1.1 Environment
 
 ```bash
-# Create environment (example)
-conda create -n veesion-env python=3.10 -y
-conda activate veesion-env
-
-# Install PyTorch with CUDA 11.8 (works on RTX 3000)
+conda create -n veesion python=3.10 -y && conda activate veesion
 conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
-
-# Install project requirements
 pip install -r requirements.txt
-```
-### 1.2 .Data preparation
-#### extract 2-D keypoints from the sample videos
+### 1.2 Data prep
 python utils/skeleton_extraction.py \
        --video_dir data/videos \
-       --out_dir  data/keypoints
+       --out_dir   data/keypoints
 
-#### generate dummy labels (5 classes, round-robin)
 python utils/create_dummy_labels.py \
        --video_dir data/videos \
        --csv       data/labels/labels.csv
-### 1.3 .Task 1 - Skeleton + LSTM
-#### train
-python train/train_skeleton_model.py \
-       --keypoints_dir data/keypoints \
-       --labels_csv    data/labels/labels.csv
+### 1.3 Train & test
 
-#### inference (npy or video)
-python inference/inference_task1.py \
-       --input_path data/keypoints/sample.npy \
-       --model_path best_model_task1.pth
+Task	Train	Inference
+1 Skeleton LSTM	python train/train_skeleton_model.py	python inference/inference_task1.py
+2 SSL + LSTM	python train/pretrain_ssl_task2.py → python train/train_video_model_task2_3.py --model_type lstm	python inference/inference_task2_3.py --model_type lstm
+3 SSL + Transformer	(reuse adapters) → python train/train_video_model_task2_3.py --model_type transformer	python inference/inference_task2_3.py --model_type transformer
 
-### 1.4 Task 2 - SSL Encoder + LSTM
-#### self-supervised adapter pre-training
-python train/pretrain_ssl_task2.py \
-       --image_dir data/frames \
-       --out_path  model_weights/dino_adapter.pth
+Every script accepts --help for extra flags (sequence length, adapter layers, etc.).
 
-#### train LSTM head on videos
-python train/train_video_model_task2_3.py \
-       --model_type lstm \
-       --video_dir  data/videos \
-       --labels_csv data/labels/labels.csv
+## 2 · LLM vs. manual code
 
-### 1.5 Task 3 - SSL Encoder + Transformer
-#### train Transformer head
-python train/train_video_model_task2_3.py \
-       --model_type transformer \
-       --video_dir  data/videos \
-       --labels_csv data/labels/labels.csv
+Portion	Origin
+Arg‑parsers, boiler‑plate loops	ChatGPT scaffold
+Adapter class, masking logic, weight‑init utils, sliding‑window detector, final README	Manual
 
-### 1.6 .Unified inference (Task 2 & 3)
-#### choose --model_type lstm | transformer
-python inference/inference_task2_3.py \
-       --model_type transformer \
-       --model_path best_video_model_tx.pth \
-       --video_path data/videos/sample.avi
+Inline comments mark # LLM scaffold or # Manual.
 
-All scripts support --help for additional flags (sequence length, adapter layers, etc.).
+## 3 · Design choices (fixed framework)
+
+Mandatory block	Implementation	Detection benefit
+2‑D skeletons	MediaPipe (body + hands)	Fast demo; preserves fine hand motion
+SSL frame encoder	DINOv2 frozen + 3 × 64‑dim adapters (layers 0/5/11)	Domain adapts with < 0.5 % new params
+Temporal head A	1‑layer LSTM (hidden 256)	Low‑latency, online
+Temporal head B	2‑layer TransformerEncoder (8 heads, sinusoidal PE)	Long‑range context
+Detector logic	16‑frame sliding window (stride 4)	Clip classifier → gesture boundaries
+
+## 4 · What I’d improve with more time/data
+
+Pose quality – ViTPose / PCIE‑Pose ⇒ better finger joints
+
+Encoder – VideoMAE‑v2 / VideoMamba ⇒ video‑native SSL
+
+Temporal – Mamba / long‑seq Transformer for minute‑long clips
+
+Context – RT‑DETR / YOLOv9 boxes for interaction cues
+
+Weak supervision – HATNet, WS‑STRONG (CVPR 24/25) to cut labeling cost
+
+Multimodal – Qwen‑VL / MAViL for language‑conditioned search
+
+
