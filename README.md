@@ -79,7 +79,7 @@ Inline comments are tagged `# by LLM ` or `# Manual`.
 
 ## 4 Next steps (with more data & time) 
 
-* **Pose quality** – ViTPose / PCIE‑Pose for robust finger joints. Focuses on most important keypoints (especially for surveillance task) such as hands, fingers.
+* **Pose quality** – ViTPose / PCIE‑Pose for robust finger joints. Focuses on most important keypoints (especially for surveillance task) such as hands, fingers. 
 * **Encoder** – VideoMAE‑v2 or VideoMamba for video-native SSL
 * **Temporal** – Mamba or long-sequence Transformers for minute-long clips, learnable or relative temporal positional embeddings.
 * **Context** – RT‑DETR / YOLOv9 boxes for person‑object cues. Focuses the model on active people/hands/objects, filtering irrelevant motion. Captures interactions (e.g., picking up objects, waving, pointing).
