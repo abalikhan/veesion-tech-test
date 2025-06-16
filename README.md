@@ -5,7 +5,18 @@ _Building a concise, end-to-end pipeline for temporal human gesture classificati
 
 ## 1 · How to run
 
-> **Setup** – `pip install -r requirements.txt` (Python 3.10; CUDA 11.8 optional)
+> **Quick setup**
+
+```bash
+# ➊ Create environment (example)
+conda create -n veesion-env python=3.10 -y
+conda activate veesion-env
+
+# ➋ Install PyTorch with CUDA 11.8 (works on RTX 3000)
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+
+# ➌ Install project requirements
+pip install -r requirements.txt
 
 | Step | Command (defaults) | Result |
 |------|--------------------|--------|
