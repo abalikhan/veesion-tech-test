@@ -13,6 +13,8 @@ conda create -n veesion python=3.10 -y
 conda activate veesion
 conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 pip install -r requirements.txt
+# install repo as editable package (ensures clean imports)
+pip install -e .
 ```
 
 ### 1.2 Data prep
