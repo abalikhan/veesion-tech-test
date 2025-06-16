@@ -73,7 +73,7 @@ Inline comments are tagged `# by LLM ` or `# Manual`.
 
 ---
 
-## 4 Next steps (with more data) with improvement ideas
+## 4 Next steps (with more data) & improved ideas
 
 * **Pose quality** – ViTPose / PCIE‑Pose for robust finger joints. Focuses on most important keypoints (especially for surveillance task) such as hands, fingers.
 * **Encoder** – VideoMAE‑v2 or VideoMamba for video-native SSL
