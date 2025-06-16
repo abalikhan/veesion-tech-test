@@ -68,7 +68,7 @@ Inline comments are tagged `# by LLM ` or `# Manual`.
 2) Sliding / chunked inference – Run the network on overlapping windows; threshold and group contiguous positives, then apply temporal-NMS to yield start–end segments.
 3) Long-video scalability – Process long streams in chunks with hidden-state carry-over (LSTM) or memory-efficient attention blocks (e.g., sparse/segmental Transformer); this keeps detection feasible on hour-long footage without losing context.
 
-| Block           | Implementation                                          | Detection benefit                     |
+| Block           | Implementation                                          | Benefit                     |
 | --------------- | ------------------------------------------------------- | ------------------------------------- |
 | 2-D skeletons   | MediaPipe (body + hands)                                | Fast demo; fine hand motion preserved |
 | SSL encoder     | DINOv2 frozen + 3 × 64-dim adapters (layers 0/5/11)     | Domain adapts with < 0.5 % new params |
