@@ -9,6 +9,7 @@
 ### 1.1 Environment
 
 ```bash
+
 conda create -n veesion python=3.10 -y
 conda activate veesion
 conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
@@ -21,6 +22,7 @@ pip install -e .
 ### 1.2 Data prep
 
 ```bash
+
 python utils/skeleton_extraction.py \
        --video_dir data/videos \
        --out_dir   data/keypoints
@@ -28,6 +30,7 @@ python utils/skeleton_extraction.py \
 python utils/create_dummy_labels.py \
        --video_dir data/videos \
        --csv       data/labels/labels.csv
+
 ```
 
 ### 1.3 Train / infer
@@ -57,9 +60,9 @@ Inline comments are tagged `# by LLM ` or `# Manual`.
 ### Task 1 -- Skeleton Model + LSTM
 1) I selected **MediaPipe** for skeleton extraction because of its speed, reliability, and minimal code complexity. This avoids installing and debugging heavyweight extractors (e.g. OpenPose, ViTPose). But there are more robust methods that can be utilized for this part such as ViTPose, PCIE-Pose or OpenGait.
 2) **How it fits gesture detection?** Sliding a short-window LSTM over successive keypoint frames turns the clip-level model into a frame-time gesture detector, pinpointing when each action starts and ends.
-### Task 2 Pretrain 2D Encoder in Self-Supervised manner
+### Task 2 + 3 Pretrain 2D Encoder in SSL encoder & temporal head
 1) Adapting a powerful SSL backbone (DINOv2) with lightweight adapters (< 0.5 % params) gives rapid domain transfer to our gesture clips; the same strategy would work with MAE or newer video models like VideoMAE-v2 or VideoMamba.
-2) I modeled basic adpapters, but we can opt latest techniques such as IA^3, LoRA, AdapterFusion, or even temporal adapters from our Paper "AM Flow: Adapters for Temporal Processing in Action Recognition".
+2) I modeled basic adapters, but we can opt latest techniques such as IA^3, LoRA, AdapterFusion, or even temporal adapters from our Paper "AM Flow: Adapters for Temporal Processing in Action Recognition".
 ### How it fits gesture detection (Task 2 & 3)
 1) Frame-level logits – Make the LSTM or Transformer output a score per frame (or short clip) rather than a single video label.
 2) Sliding / chunked inference – Run the network on overlapping windows; threshold and group contiguous positives, then apply temporal-NMS to yield start–end segments.
