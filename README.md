@@ -57,7 +57,7 @@ Inline comments are tagged `# by LLM ` or `# Manual`.
 ---
 
 ## 3 Design choices
-### Task 1 -- Skeleton Model + LSTM
+### Task 1 Skeleton Model + LSTM
 1) I selected **MediaPipe** for skeleton extraction because of its speed, reliability, and minimal code complexity. This avoids installing and debugging heavyweight extractors (e.g. OpenPose, ViTPose). But there are more robust methods that can be utilized for this part such as ViTPose, PCIE-Pose or OpenGait.
 2) **How it fits gesture detection?** Sliding a short-window LSTM over successive keypoint frames turns the clip-level model into a frame-time gesture detector, pinpointing when each action starts and ends.
 ### Task 2 + 3 Pretrain 2D Encoder in SSL encoder & temporal head
