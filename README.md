@@ -59,8 +59,10 @@ Inline comments are tagged `# by LLM ` or `# Manual`.
 ### Task 2 Pretrain 2D Encoder in Self-Supervised manner
 1) Adapting a powerful SSL backbone (DINOv2) with lightweight adapters (< 0.5 % params) gives rapid domain transfer to our gesture clips; the same strategy would work with MAE or newer video models like VideoMAE-v2 or VideoMamba.
 2) I modeled basic adpapters, but we can opt latest techniques such as IA^3, LoRA, AdapterFusion, or even temporal adapters from our Paper "AM Flow: Adapters for Temporal Processing in Action Recognition".
-### Temporal modelling (Task 2 - 3) LSTM & Transformer
-1) Defined in Table below.
+### How it fits gesture detection (Task 2 & 3)
+1) Frame-level logits – Make the LSTM or Transformer output a score per frame (or short clip) rather than a single video label.
+2) Sliding / chunked inference – Run the network on overlapping windows; threshold and group contiguous positives, then apply temporal-NMS to yield start–end segments.
+3) Long-video scalability – Process long streams in chunks with hidden-state carry-over (LSTM) or memory-efficient attention blocks (e.g., sparse/segmental Transformer); this keeps detection feasible on hour-long footage without losing context.
 
 | Block           | Implementation                                          | Detection benefit                     |
 | --------------- | ------------------------------------------------------- | ------------------------------------- |
