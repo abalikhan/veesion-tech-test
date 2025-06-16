@@ -1,17 +1,23 @@
-content = """# Veesion Technical Test · Abid Ali  
-_Concise end‑to‑end pipeline for temporal human‑gesture **detection**_
+# Veesion Technical Test · Abid Ali
+
+*Concise end-to-end pipeline for temporal human-gesture **detection***
 
 ---
 
-## 1 · Quick start (≈ 3 min)
+## 1 Quick start (≈ 3 min)
 
-### 1.1 Environment
+### 1.1 Environment
 
 ```bash
-conda create -n veesion python=3.10 -y && conda activate veesion
+conda create -n veesion python=3.10 -y
+conda activate veesion
 conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 pip install -r requirements.txt
-### 1.2 Data prep
+```
+
+### 1.2 Data prep
+
+```bash
 python utils/skeleton_extraction.py \
        --video_dir data/videos \
        --out_dir   data/keypoints
@@ -19,44 +25,52 @@ python utils/skeleton_extraction.py \
 python utils/create_dummy_labels.py \
        --video_dir data/videos \
        --csv       data/labels/labels.csv
-### 1.3 Train & test
+```
 
-Task	Train	Inference
-1 Skeleton LSTM	python train/train_skeleton_model.py	python inference/inference_task1.py
-2 SSL + LSTM	python train/pretrain_ssl_task2.py → python train/train_video_model_task2_3.py --model_type lstm	python inference/inference_task2_3.py --model_type lstm
-3 SSL + Transformer	(reuse adapters) → python train/train_video_model_task2_3.py --model_type transformer	python inference/inference_task2_3.py --model_type transformer
+### 1.3 Train / infer
 
-Every script accepts --help for extra flags (sequence length, adapter layers, etc.).
+| Task                    | Train command                                                                                        | Inference                                                        |
+| ----------------------- | ---------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **1 Skeleton LSTM**     | `python train/train_skeleton_model.py`                                                               | `python inference/inference_task1.py`                            |
+| **2 SSL + LSTM**        | `python train/pretrain_ssl_task2.py` → `python train/train_video_model_task2_3.py --model_type lstm` | `python inference/inference_task2_3.py --model_type lstm`        |
+| **3 SSL + Transformer** | *(reuse adapters)* → `python train/train_video_model_task2_3.py --model_type transformer`            | `python inference/inference_task2_3.py --model_type transformer` |
 
-## 2 · LLM vs. manual code
+> Run any script with `--help` for extra flags (sequence length, adapter layers, etc.).
 
-Portion	Origin
-Arg‑parsers, boiler‑plate loops	ChatGPT scaffold
-Adapter class, masking logic, weight‑init utils, sliding‑window detector, final README	Manual
+---
 
-Inline comments mark # LLM scaffold or # Manual.
+## 2 LLM vs. manual code
 
-## 3 · Design choices (fixed framework)
+| Portion                                                                                | Origin               |
+| -------------------------------------------------------------------------------------- | -------------------- |
+| Arg-parsers, boiler-plate loops                                                        | **ChatGPT scaffold** |
+| Adapter class, masking logic, weight-init utils, sliding-window detector, final README | **Manual**           |
 
-Mandatory block	Implementation	Detection benefit
-2‑D skeletons	MediaPipe (body + hands)	Fast demo; preserves fine hand motion
-SSL frame encoder	DINOv2 frozen + 3 × 64‑dim adapters (layers 0/5/11)	Domain adapts with < 0.5 % new params
-Temporal head A	1‑layer LSTM (hidden 256)	Low‑latency, online
-Temporal head B	2‑layer TransformerEncoder (8 heads, sinusoidal PE)	Long‑range context
-Detector logic	16‑frame sliding window (stride 4)	Clip classifier → gesture boundaries
+Inline comments are tagged `# LLM scaffold` or `# Manual`.
 
-## 4 · What I’d improve with more time/data
+---
 
-Pose quality – ViTPose / PCIE‑Pose ⇒ better finger joints
+## 3 Design choices (fixed framework)
 
-Encoder – VideoMAE‑v2 / VideoMamba ⇒ video‑native SSL
+| Block           | Implementation                                          | Detection benefit                     |
+| --------------- | ------------------------------------------------------- | ------------------------------------- |
+| 2-D skeletons   | MediaPipe (body + hands)                                | Fast demo; fine hand motion preserved |
+| SSL encoder     | DINOv2 frozen + 3 × 64-dim adapters (layers 0/5/11)     | Domain adapts with < 0.5 % new params |
+| Temporal head A | 1-layer **LSTM** (hidden 256)                           | Low‑latency, online                   |
+| Temporal head B | 2-layer **TransformerEncoder** (8 heads, sinusoidal PE) | Long-range context                    |
+| Detector logic  | 16‑frame sliding window (stride 4)                      | Clip classifier → gesture boundaries  |
 
-Temporal – Mamba / long‑seq Transformer for minute‑long clips
+---
 
-Context – RT‑DETR / YOLOv9 boxes for interaction cues
+## 4 Next steps (with more data)
 
-Weak supervision – HATNet, WS‑STRONG (CVPR 24/25) to cut labeling cost
+* **Pose quality** – ViTPose / PCIE‑Pose for robust finger joints
+* **Encoder** – VideoMAE‑v2 or VideoMamba for video-native SSL
+* **Temporal** – Mamba or long-sequence Transformers for minute-long clips
+* **Context** – RT‑DETR / YOLOv9 boxes for person‑object cues
+* **Weak supervision** – HATNet, WS‑STRONG (CVPR 24/25) to reduce labeling cost
+* **Multimodal** – Qwen‑VL / MAViL for language‑conditioned gesture search
 
-Multimodal – Qwen‑VL / MAViL for language‑conditioned search
+---
 
-
+*Questions? Open an issue or email – I’m happy to elaborate on any detail.*
