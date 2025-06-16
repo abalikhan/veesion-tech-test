@@ -1,0 +1,14 @@
+# Skeleton extraction & video I/O
+mediapipe
+opencv-python
+Pillow
+
+# Data & ML utilities
+numpy
+scikit-learn
+matplotlib
+pandas
+
+# HuggingFace & model adapters
+transformers
+timm
