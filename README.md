@@ -48,7 +48,7 @@ python utils/create_dummy_labels.py \
 | Arg-parsers, boiler-plate loops including train and inference, skeleton extraction, README                                                        | **ChatGPT scaffold** |
 | Design choices, Ideas, Models coding including custom adapters, most of utils, dataloaders, final README | **Manual**           |
 
-Inline comments are tagged `# LLM scaffold` or `# Manual`.
+Inline comments are tagged `# by LLM ` or `# Manual`.
 
 ---
 
