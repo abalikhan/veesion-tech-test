@@ -4,7 +4,7 @@
 
 ---
 
-## 1 Quick start (≈ 3 min)
+## 1 Quick start
 
 ### 1.1 Environment
 
