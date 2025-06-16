@@ -3,21 +3,21 @@ _Building a concise, end-to-end pipeline for temporal human gesture classificati
 
 ---
 
-### 1 · How to run
-
-> **Quick setup**
+## 1 .Quick setup
 
 ```bash
-# ➊ Create environment (example)
+# Create environment (example)
 conda create -n veesion-env python=3.10 -y
 conda activate veesion-env
 
-# ➋ Install PyTorch with CUDA 11.8 (works on RTX 3000)
+# Install PyTorch with CUDA 11.8 (works on RTX 3000)
 conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 
-# ➌ Install project requirements
+# Install project requirements
 pip install -r requirements.txt
-
+```
+## 2 .How to run
+```bash
 | Step | Command (defaults) | Result |
 |------|--------------------|--------|
 | Skeleton extraction | `python utils/skeleton_extraction.py --video_dir data/videos --out_dir data/keypoints` | MediaPipe keypoints → `.npy` |
@@ -30,7 +30,7 @@ pip install -r requirements.txt
 
 All scripts expose `--help` for further flags (sequence length, adapter layers, etc.).
 
----
+```
 
 ## 2 · LLM vs. manual code
 
