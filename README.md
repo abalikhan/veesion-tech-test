@@ -15,6 +15,7 @@ conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvi
 pip install -r requirements.txt
 # install repo as editable package (ensures clean imports)
 pip install -e .
+
 ```
 
 ### 1.2 Data prep
@@ -77,7 +78,7 @@ Inline comments are tagged `# by LLM ` or `# Manual`.
 
 * **Pose quality** – ViTPose / PCIE‑Pose for robust finger joints. Focuses on most important keypoints (especially for surveillance task) such as hands, fingers.
 * **Encoder** – VideoMAE‑v2 or VideoMamba for video-native SSL
-* **Temporal** – Mamba or long-sequence Transformers for minute-long clips, learnable or relative temoppral positional embeddings.
+* **Temporal** – Mamba or long-sequence Transformers for minute-long clips, learnable or relative temporal positional embeddings.
 * **Context** – RT‑DETR / YOLOv9 boxes for person‑object cues. Focuses the model on active people/hands/objects, filtering irrelevant motion. Captures interactions (e.g., picking up objects, waving, pointing).
 * **Weak supervision** – HATNet, WS‑STRONG (CVPR 24/25) to reduce labeling cost
 * **Multimodal** – Qwen‑VL for language‑conditioned gesture search
