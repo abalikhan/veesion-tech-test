@@ -3,7 +3,7 @@ _Building a concise, end-to-end pipeline for temporal human gesture classificati
 
 ---
 
-## 1 · How to run
+### 1 · How to run
 
 > **Quick setup**
 
