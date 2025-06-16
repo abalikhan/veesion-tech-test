@@ -44,12 +44,10 @@ python utils/create_dummy_labels.py \
 
 ## 2 LLM vs. manual code
 
-| Portion                                                                                | Origin               |
-| -------------------------------------------------------------------------------------- | -------------------- |
-| Arg‑parsers, boiler‑plate loops (train & inference),                                   | **ChatGPT scaffold** | 
-| skeleton extraction, initial README                                                                           |
-| Design choices & ideas, model coding (custom adapters),                                | **Manual**           |
-| most utils/data‑loaders, final README                                                  |                      |   
+| Portion | Origin |
+|---------|--------|
+| Arg-parsers and boiler-plate loops (train & inference).<br>Skeleton extraction and the initial README. | **ChatGPT scaffold** |
+| Design choices & ideas and custom adapter coding.<br>Most utils/data-loaders and the final README. | **Manual** |   
 
 Inline comments are tagged `# by LLM ` or `# Manual`.
 
