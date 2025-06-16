@@ -46,9 +46,10 @@ python utils/create_dummy_labels.py \
 
 | Portion                                                                                | Origin               |
 | -------------------------------------------------------------------------------------- | -------------------- |
-| Arg‑parsers, boiler‑plate loops (train & inference),                                    **ChatGPT scaffold**  | 
+| Arg‑parsers, boiler‑plate loops (train & inference),                                   | **ChatGPT scaffold** | 
 | skeleton extraction, initial README                                                                           |
-| Adapter class, masking logic, weight-init utils, sliding-window detector, final README | **Manual**           |
+| Design choices & ideas, model coding (custom adapters),                                | **Manual**           |
+| most utils/data‑loaders, final README                                                  |                      |   
 
 Inline comments are tagged `# by LLM ` or `# Manual`.
 
